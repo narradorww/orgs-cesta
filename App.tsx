@@ -18,7 +18,7 @@ export default function App() {
 
     <SafeAreaView >
       <StatusBar hidden={true} />
-      <Cesta text="Detalhes da Cesta" />
+      <Cesta  />
     </SafeAreaView>
   );
 }
