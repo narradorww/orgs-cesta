@@ -1,39 +1,51 @@
 import * as React from "react";
-import {
-  
-  View,
-  StyleSheet,
-
-} from "react-native";
-import Texto from "../../componentes/Texto";
+import { FlatList } from "react-native";
 import Topo from "./componentes/Topo";
 import Detalhes from "./componentes/Detalhes";
+import Item from "./componentes/Item";
 
-function Cesta() {
+type CestaProps = {
+  topo: {
+    titulo: string;
+  };
+  detalhes: {
+    nome: string;
+    logoFazenda: string;
+    nomeFazenda: string;
+    descricao: string;
+    preco: string;
+    botao: string;
+    };
+    itens: {
+      lista:[
+        nome: string,
+        imagem: string
+      ]
+     
+    };
+};
+
+
+function Cesta({topo, detalhes, itens}: CestaProps) {
   return (
     <>
-      <Topo />
-      <Detalhes />
-      <View style={estilos.cesta}>
-        <Texto style={estilos.preco}>R$40,00</Texto>
-      </View>
+    <FlatList
+    data={itens.lista}
+    renderItem={Item}
+    keyExtractor={({nome})=> nome}
+    ListHeaderComponent={() =>{
+      return (
+        <>
+        <Topo {...topo} />
+        <Detalhes {...detalhes} />
+        </>
+      )
+    }}
+      />
     </>
   );
 }
 
 export default Cesta;
 
-const estilos = StyleSheet.create({
-    cesta: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  
-  preco: {
-    color: "#2a9f85",
-    fontWeight: "bold",
-    fontSize: 26,
-    lineHeight: 42,
-    marginTop: 8,
-  },
-});
+
